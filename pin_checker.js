@@ -67,11 +67,10 @@ customElements.define('pincode-checker', PinCodeChecker)
 
 // --------------------------------------------------------------------------------------------------------
 
-// function to fetch delivery status of that pincode..
-
 const pinBox = document.querySelector('pincode-checker')
 const input = pinBox.shadowRoot.querySelector('input')
 const button = pinBox.shadowRoot.querySelector('button')
+const displayRecords = document.querySelector('.records')
 
 button.addEventListener('click', () => {
     if (input.value !== '' && !isNaN(input.value)) {
@@ -81,9 +80,11 @@ button.addEventListener('click', () => {
     } else {
         alert("Enter valid six digit pincode")
         input.value = ''
+        displayRecords.innerHTML = ''
     }
 });
 
+// function to fetch delivery status of the given pincode..
 async function getData(pincode) {
     try {
         const res = await fetch('https://api.postalpincode.in/pincode/' + pincode)
@@ -98,22 +99,18 @@ async function getData(pincode) {
 function showData(data) {
     const postalData = data[0].PostOffice
     console.log(postalData)
-    const displayRecords = document.querySelector('.records')
+
     displayRecords.innerHTML = ""
     
     if (postalData !== null) {
         postalData.forEach(place => {
             const para = document.createElement('p')
             const span = document.createElement('span')
-            span.innerHTML = `${place.DeliveryStatus}`
             para.textContent = `${place.Name} : `
-
-            if(span.innerHTML == 'Delivery'){
-                span.classList.add('success')
-            } else {
-                span.classList.add('failed')
-            }
-
+            
+            span.innerHTML = place.DeliveryStatus !== 'Delivery' ? "Non-Deliverable" : "Delivery available !"
+            span.style.color = span.innerHTML === 'Delivery available !' ? 'rgb(8, 216, 8)' : 'red'
+            
             para.appendChild(span)
             displayRecords.appendChild(para)
         })
@@ -121,6 +118,7 @@ function showData(data) {
         const para = document.createElement('p')
         para.classList.add('failed')
         para.textContent = `No Records Found`
+        para.style.color = 'red'
         displayRecords.appendChild(para)
     }
 }
