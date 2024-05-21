@@ -1,2 +1,2 @@
-# [https://vignesh-1523.github.io/Custom-Element-Pincode-checker-/](Pincode checker)
+# [Pincode Checker](https://vignesh-1523.github.io/Custom-Element-Pincode-checker-/)
 Created a Custom input Element that checkes for Delivery status of places in India using pincode.
