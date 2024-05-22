@@ -26,11 +26,12 @@ class PinCodeChecker extends HTMLElement {
         style.textContent = `
      /* Style for the input */
      input {
-         width: 200px;
-         padding: 12px;
-         font-size: 17px;
+         width: 300px;
+         padding: 15px;
+         font-size: 20px;
          border: none;
          outline: none;
+         letter-spacing: 1px;
          background-color: #DDDDDD;
      }
 
@@ -39,8 +40,8 @@ class PinCodeChecker extends HTMLElement {
          background-color: #007bff;
          color: white;
          border: none;
-         padding: 12px;
-         font-size: 17px;
+         padding: 15px;
+         font-size: 20px;
          cursor: pointer;
      }
 
